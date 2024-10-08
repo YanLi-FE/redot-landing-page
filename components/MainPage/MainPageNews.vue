@@ -1,5 +1,19 @@
 <script setup lang="ts">
+import { computed } from "vue";
+
 const isMobile = useIsMobile();
+
+const { data: posts } = await useAsyncData("recent-posts", () =>
+  queryContent("/blog").find()
+);
+useContentHead(posts.value);
+
+const recentPosts = computed(() => {
+  return posts.value
+    .filter((post) => post.type === "post" && post.published)
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 5);
+});
 </script>
 
 <template>
@@ -7,16 +21,21 @@ const isMobile = useIsMobile();
     <template #button>
       <LinkButton href="#" type="red">
         More news
-        <Icon name="arrow"/>
+        <Icon name="arrow" />
       </LinkButton>
     </template>
 
     <div class="news-grid">
-      <MainPageNewsArticle :vertical="isMobile"  />
-      <MainPageNewsArticle :vertical="!isMobile" :alternate-horizontal-layout="isMobile" />
-      <MainPageNewsArticle :vertical="!isMobile" :alternate-horizontal-layout="isMobile" />
-      <MainPageNewsArticle :vertical="!isMobile" :alternate-horizontal-layout="isMobile" />
-      <MainPageNewsArticle :vertical="!isMobile" :alternate-horizontal-layout="isMobile" />
+      <MainPageNewsArticle
+        v-for="(post, index) in recentPosts"
+        :key="index"
+        :title="post.title"
+        :description="post.description"
+        :image="post.image"
+        :url="post._path"
+        :vertical="index === 0 ? isMobile : !isMobile"
+        :alternate-horizontal-layout="index === 0 ? !isMobile : isMobile"
+      />
     </div>
   </MainPageSection>
 </template>
