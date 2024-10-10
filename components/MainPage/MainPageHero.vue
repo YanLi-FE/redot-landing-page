@@ -33,15 +33,29 @@ function scroll() {
 </template>
 
 <style scoped lang="scss">
+@keyframes slideshow {
+  0%, 28% {
+    background-image: url(~/assets/images/game_preview/game_preview_01.avif);
+  }
+  33%, 61% {
+    background-image: url(~/assets/images/game_preview/game_preview_02.avif);
+  }
+  66%, 94% {
+    background-image: url(~/assets/images/game_preview/game_preview_03.avif);
+  }
+  100% {
+    background-image: url(~/assets/images/game_preview/game_preview_01.avif);
+  }
+}
+
 .hero {
   height: 100dvh;
-  background:
-      linear-gradient(to bottom, #000f, #0000 100px, #0000 calc(100% - 100px), #000f),
-      url(https://picsum.photos/seed/videogame8/1920/1080) no-repeat center;
-  background-size: cover, cover;
+  background-size: cover;
   display: grid;
   place-items: center;
   position: relative;
+  animation: slideshow 15s infinite;
+  transition: background-image 1s ease-in-out;
 
   @media (max-width: 410px) {
     padding: 0 10px;
