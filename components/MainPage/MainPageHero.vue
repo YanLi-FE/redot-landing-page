@@ -48,7 +48,6 @@ function scroll() {
     background-image: url(~/assets/images/game_preview/game_preview_01.avif);
   }
 }
-
 .hero {
   position: relative;
   height: 100dvh;
@@ -65,10 +64,15 @@ function scroll() {
     top: 0;
     left: 0;
     right: 0;
-    height: 100px;
-    background: linear-gradient(to bottom, #000f, #0000 100px, #0000 calc(100% - 100px), #000f);
-    z-index: 1;
+    bottom: 0;
+    background: linear-gradient(to bottom,
+        #000f 0%,
+        #0000 100px,
+        #0000 calc(100% - 100px),
+        #000f 100%
+    );
   }
+
 
   @media (max-width: 410px) {
     padding: 0 10px;
