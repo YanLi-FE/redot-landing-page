@@ -50,13 +50,25 @@ function scroll() {
 }
 
 .hero {
+  position: relative;
   height: 100dvh;
-  background-size: cover;
   display: grid;
   place-items: center;
-  position: relative;
+  background-size: cover;
+  background-position: center;
   animation: slideshow 15s infinite;
   transition: background-image 1s ease-in-out;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, #000f, #0000 100px, #0000 calc(100% - 100px), #000f);
+    z-index: 1;
+  }
 
   @media (max-width: 410px) {
     padding: 0 10px;
