@@ -114,6 +114,7 @@ function scroll() {
 }
 
 .hero-game-name {
+  visibility: hidden; /* Set visible, once we have real games to show */
   border: 1px solid #1d1c1b;
   border-radius: 36px;
   padding: 5px 10px;
